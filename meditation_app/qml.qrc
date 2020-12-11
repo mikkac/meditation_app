@@ -1,8 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>main_view.qml</file>
-        <file>settings_view.qml</file>
-        <file>stats_view.qml</file>
+        <file>MeditationView.qml</file>
+        <file>SettingsView.qml</file>
+        <file>StatsView.qml</file>
+        <file>ButtonsBar.qml</file>
     </qresource>
 </RCC>

@@ -16,38 +16,22 @@ Window {
         anchors.fill: parent
 
         RowLayout {
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             Loader {
                id: viewLoader
-               source: "main_view.qml"
-               anchors.fill: parent
+               source: "MeditationView.qml"
             }
         }
+
         RowLayout {
-            width: parent.width
-            height: 50
-            anchors.bottom: parent.bottom
-
-            RoundButton {
-                id: meditationButton
-                height: parent.height
-                visible: true
-                onClicked: viewLoader.source = "main_view.qml"
-            }
-
-            RoundButton {
-                id: statsButton
-                height: parent.height
-                visible: true
-                onClicked: viewLoader.source = "stats_view.qml"
-            }
-
-            RoundButton {
-                id: settingsButton
-                height: parent.height
-                visible: true
-
-                onClicked: viewLoader.source = "settings_view.qml"
+            ButtonsBar {
+                id: buttonsBar
+                height: 50
+                onMeditationClicked: function() { viewLoader.source = "MeditationView.qml" }
+                onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
+                onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
             }
         }
     }
+
 }
