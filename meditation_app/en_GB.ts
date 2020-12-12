@@ -4,7 +4,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="main.qml" line="10"/>
+        <location filename="main.qml" line="9"/>
         <source>Meditation App</source>
         <translation type="unfinished"></translation>
     </message>

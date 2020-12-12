@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
 
 Window {
@@ -16,14 +15,17 @@ Window {
         anchors.fill: parent
 
         RowLayout {
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.alignment: Qt.AlignCenter
             Loader {
                id: viewLoader
+               width: parent.width
+               height: parent.height
                source: "MeditationView.qml"
             }
         }
 
         RowLayout {
+            visible: true
             ButtonsBar {
                 id: buttonsBar
                 height: 50
