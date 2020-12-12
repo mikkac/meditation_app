@@ -32,12 +32,18 @@ set(TS_FILES en_GB.ts)
 if(ANDROID)
     add_library(meditation_app SHARED
       main.cpp
+      meditationmodel.cpp
+      statsmodel.cpp
+      settingsmodel.cpp
       qml.qrc
       ${TS_FILES}
     )
 else()
     add_executable(meditation_app
       main.cpp
+      meditationmodel.cpp
+      statsmodel.cpp
+      settingsmodel.cpp
       qml.qrc
       ${TS_FILES}
     )
