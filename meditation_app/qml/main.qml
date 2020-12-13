@@ -1,12 +1,15 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.12
 
 Window {
     width: 480
     height: 800
     visible: true
     title: qsTr("Meditation App")
+    Material.theme: Material.Dark
+    Material.accent: Material.Purple
 
     ColumnLayout {
         id: mainLayout
