@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 
 project(meditation_app LANGUAGES CXX)
 
@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
@@ -32,18 +32,22 @@ set(TS_FILES en_GB.ts)
 if(ANDROID)
     add_library(meditation_app SHARED
       main.cpp
-      meditationmodel.cpp
-      statsmodel.cpp
-      settingsmodel.cpp
+      logic/timer.cpp
+      logic/meditationcontroller.cpp
+      model/meditationmodel.cpp
+      model/statsmodel.cpp
+      model/settingsmodel.cpp
       qml.qrc
       ${TS_FILES}
     )
 else()
     add_executable(meditation_app
       main.cpp
-      meditationmodel.cpp
-      statsmodel.cpp
-      settingsmodel.cpp
+      logic/timer.cpp
+      logic/meditationcontroller.cpp
+      model/meditationmodel.cpp
+      model/statsmodel.cpp
+      model/settingsmodel.cpp
       qml.qrc
       ${TS_FILES}
     )
