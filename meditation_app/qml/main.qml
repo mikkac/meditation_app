@@ -19,11 +19,30 @@ Window {
 
         RowLayout {
             Layout.alignment: Qt.AlignCenter
-            Loader {
-               id: viewLoader
-               width: parent.width
-               height: parent.height
-               source: "MeditationView.qml"
+            Item {
+
+                width: parent.width
+                height: parent.height
+                Loader {
+                   id: viewLoader
+                   width: parent.width
+                   height: parent.height
+                   onSourceChanged: animation.running = true
+                }
+
+                NumberAnimation {
+                    id: animation
+                    target: viewLoader.item
+                    property: "y"
+                    from: viewLoader.item.height
+                    to: 0
+                    duration: 500
+                    easing.type: Easing.InExpo
+                }
+
+                Component.onCompleted:  {
+                    viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
+                }
             }
         }
 
@@ -32,7 +51,12 @@ Window {
             ButtonsBar {
                 id: buttonsBar
                 height: 50
-                onMeditationClicked: function() { viewLoader.source = "MeditationView.qml" }
+                onMeditationClicked: function() {
+                    if (viewLoader.source != Qt.resolvedUrl("MeditationView.qml"))
+                    {
+                        viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
+                    }
+                }
                 onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
                 onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
             }

@@ -34,7 +34,7 @@ class MeditationModel : public QObject
     // used by QML
     void modelStateChanged(MeditationState state);
     void durationChanged(uint16_t duration);
-    void timeLeftChanged(uint16_t timeLeftChanged);
+    void timeLeftChanged(uint timeLeft);
 
     // used by C++
     void configChanged(med::MeditationConfig config);
