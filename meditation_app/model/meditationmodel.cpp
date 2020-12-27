@@ -22,7 +22,7 @@ uint16_t MeditationModel::getDuration() const {
     return config_.duration_s;
 }
 
-uint16_t MeditationModel::getTimeLeft() const {
+uint MeditationModel::getTimeLeft() const {
     return time_left_s_;
 }
 
@@ -40,6 +40,7 @@ void MeditationModel::setDuration(uint16_t duration) {
 }
 
 void MeditationModel::setState(med::MeditationState state) {
+    qDebug() << "hehe";
     const auto model_state = toModelMeditationState(state);
     if (state_ == model_state) {
         qDebug() << "MeditationModel::stateChanged-> no change, returning";

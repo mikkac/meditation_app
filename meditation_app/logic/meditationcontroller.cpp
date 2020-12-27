@@ -5,7 +5,7 @@ namespace med
 {
 MeditationController::MeditationController(Timer& timer, MeditationModel& model, QObject* parent)
     : QObject(parent), timer_{timer}, model_{model} {
-    setState(MeditationState::IDLE);
+    setState(MeditationState::STOPPED);
 
     connect(&timer_, &Timer::updateTime, [this](uint16_t new_time) {
         config_.time_left_s = new_time;
@@ -46,6 +46,7 @@ void MeditationController::stopMeditation() {
     setState(MeditationState::STOPPED);
     timer_.stopCountdown();
     config_.time_left_s = config_.duration_s;
+    model_.setTimeLeft(config_.time_left_s);
 }
 
 void MeditationController::setState(MeditationState state) {
@@ -57,7 +58,8 @@ void MeditationController::setState(MeditationState state) {
     qDebug() << "MeditationController::setState-> state changed from " << static_cast<int>(state_)
              << " to " << static_cast<int>(state);
     state_ = state;
-    emit stateChanged(state_);
+    model_.setState(state_);
+    //    emit stateChanged(state_);
 }
 
 } // namespace med

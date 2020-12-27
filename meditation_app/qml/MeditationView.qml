@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
+import MeditationApp 1.0
 
 Item {
     property var model
@@ -14,27 +15,43 @@ Item {
             Label {
                 id: timeLabel
                 Layout.alignment: Qt.AlignCenter
-                text: "25:00"
+                text: model.timeLeftS
             }
-            Row {
-                Layout.alignment: Qt.AlignCenter
-                id: buttonsRow
+//            ColumnLayout {
+//                Layout.alignment: Qt.AlignCenter
+//                id: buttonsRow
                 RoundButton {
-                    id: startButton
+                    id: startPauseButton
+                    Layout.alignment: Qt.AlignCenter
                     text: "\u25B6"
-                    onClicked: model.startMeditation()
-                }
-                RoundButton {
-                    id: pauseButton
-                    text: "\u23F8"
-                    onClicked: model.pauseMeditation()
+                    height: 200
+                    width: 200
+                    onClicked: {
+                        console.log(model.state)
+                        if (model.state === MeditationState.Started)
+                        {
+                            model.pauseMeditation()
+                            text = "\u25B6"
+                        }
+                        else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped)
+                        {
+                            model.startMeditation()
+                            text = "\u23F8"
+                        }
+                    }
                 }
                 RoundButton {
                     id: stopButton
+                    Layout.alignment: Qt.AlignCenter
                     text: "\u23F9"
-                    onClicked: model.stopMeditation()
+                    onClicked:
+                    {
+                        startPauseButton.text = "\u25B6"
+                        model.stopMeditation()
+                    }
+                    visible: model.state === MeditationState.Paused
                 }
-            }
+//            }
         }
     }
 
