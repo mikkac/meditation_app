@@ -2,14 +2,31 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.12
+import QtQuick.Controls 2.15
+import MeditationApp 1.0
 
-Window {
-    width: 480
-    height: 800
+ApplicationWindow {
+    width: Constants.width
+    height: Constants.height
     visible: true
     title: qsTr("Meditation App")
     Material.theme: Material.Dark
     Material.accent: Material.Purple
+
+    footer: ToolBar {
+        ButtonsBar {
+            id: buttonsBar
+            anchors.fill: parent
+            onMeditationClicked: function() {
+                if (viewLoader.source != Qt.resolvedUrl("MeditationView.qml"))
+                {
+                    viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
+                }
+            }
+            onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
+            onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
+        }
+    }
 
     ColumnLayout {
         id: mainLayout
@@ -36,29 +53,13 @@ Window {
                     property: "y"
                     from: viewLoader.item.height
                     to: 0
-                    duration: 500
+                    duration: 300
                     easing.type: Easing.InExpo
                 }
 
                 Component.onCompleted:  {
                     viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
                 }
-            }
-        }
-
-        RowLayout {
-            visible: true
-            ButtonsBar {
-                id: buttonsBar
-                height: 50
-                onMeditationClicked: function() {
-                    if (viewLoader.source != Qt.resolvedUrl("MeditationView.qml"))
-                    {
-                        viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
-                    }
-                }
-                onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
-                onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
             }
         }
     }
