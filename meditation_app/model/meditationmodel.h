@@ -54,9 +54,9 @@ class MeditationModel : public QObject
     void stopMeditation();
 
   private:
-    MeditationState state_;
-    med::MeditationConfig config_;
-    uint time_left_s_;
+    MeditationState state_{};
+    med::MeditationConfig config_{};
+    uint time_left_s_{};
 };
 
 #endif // MEDITATIONMODEL_H

@@ -40,7 +40,6 @@ void MeditationModel::setDuration(uint16_t duration) {
 }
 
 void MeditationModel::setState(med::MeditationState state) {
-    qDebug() << "hehe";
     const auto model_state = toModelMeditationState(state);
     if (state_ == model_state) {
         qDebug() << "MeditationModel::stateChanged-> no change, returning";
