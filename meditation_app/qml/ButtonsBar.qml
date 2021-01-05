@@ -10,31 +10,49 @@ RowLayout {
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignVCenter | Qt.AlignBottom
 
-    RoundButton {
+    Button {
         id: meditationButton
-        text: "meditate"
+        Image {
+            id: meditationButtonIcon
+            source: Qt.resolvedUrl("icons/meditation.png")
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+        }
+
         height: parent.height
         Layout.fillWidth: true
         visible: true
         onClicked: onMeditationClicked()
+        flat: true
     }
 
-    RoundButton {
+    Button {
         id: statsButton
-        text: "stats"
+        Image {
+            id: statsButtonIcon
+            source: Qt.resolvedUrl("icons/stats.png")
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+        }
         height: parent.height
         Layout.fillWidth: true
         visible: true
         onClicked: onStatsClicked()
+        flat: true
     }
 
-    RoundButton {
+    Button {
         id: settingsButton
-        text: "settings"
+        Image {
+            id: settingsButtonIcon
+            source: "icons/settings.png"
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+        }
         height: parent.height
         Layout.fillWidth: true
         visible: true
-
         onClicked: onSettingsClicked()
+        flat: true
     }
 }
