@@ -25,6 +25,9 @@ int main(int argc, char* argv[]) {
     auto meditation_model = MeditationModel();
     auto meditation_controller = med::MeditationController(timer, meditation_model, &app);
 
+    qmlRegisterSingletonType(QUrl(QStringLiteral("qrc:/qml/Constants.qml")), "MeditationApp", 1, 0,
+                             "Constants");
+
     qmlRegisterUncreatableType<MeditationModel>("MeditationApp", 1, 0, "MeditationState",
                                                 "Not creatable as it is an enum type");
 
