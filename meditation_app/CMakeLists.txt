@@ -27,8 +27,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick LinguistTools REQUIRED)
 
-set(TS_FILES en_GB.ts)
-
 if(ANDROID)
     add_library(meditation_app SHARED
       main.cpp
@@ -38,7 +36,6 @@ if(ANDROID)
       model/statsmodel.cpp
       model/settingsmodel.cpp
       qml.qrc
-      ${TS_FILES}
     )
 else()
     add_executable(meditation_app
@@ -49,7 +46,6 @@ else()
       model/statsmodel.cpp
       model/settingsmodel.cpp
       qml.qrc
-      ${TS_FILES}
     )
 endif()
 
@@ -57,5 +53,3 @@ target_compile_definitions(meditation_app
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(meditation_app
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
-
-qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
