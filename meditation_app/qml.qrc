@@ -5,5 +5,18 @@
         <file>qml/SettingsView.qml</file>
         <file>qml/StatsView.qml</file>
         <file>qml/ButtonsBar.qml</file>
+        <file>qml/Constants.qml</file>
+        <file>qml/icons/meditation.svg</file>
+        <file>qml/icons/pause.svg</file>
+        <file>qml/icons/play.svg</file>
+        <file>qml/icons/settings.svg</file>
+        <file>qml/icons/stats.svg</file>
+        <file>qml/icons/stop.svg</file>
+        <file>qml/icons/stop.png</file>
+        <file>qml/icons/meditation.png</file>
+        <file>qml/icons/pause.png</file>
+        <file>qml/icons/play.png</file>
+        <file>qml/icons/settings.png</file>
+        <file>qml/icons/stats.png</file>
     </qresource>
 </RCC>
