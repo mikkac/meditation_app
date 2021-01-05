@@ -8,53 +8,95 @@ Item {
     Rectangle {
         id: meditationView
         anchors.fill: parent
-        color: "gray"
+        color: Constants.gray
         ColumnLayout {
             id: mainLayout
             anchors.fill: parent
             Label {
                 id: timeLabel
-                Layout.alignment: Qt.AlignCenter
                 text: model.timeLeftS
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.maximumHeight: Constants.height / 6
+                Layout.minimumHeight: Constants.height / 6
+                font.weight: Font.ExtraLight
+                font.pointSize: 40
+                font.family: "Verdana"
             }
-//            ColumnLayout {
-//                Layout.alignment: Qt.AlignCenter
-//                id: buttonsRow
-                RoundButton {
-                    id: startPauseButton
-                    Layout.alignment: Qt.AlignCenter
-                    text: "\u25B6"
-                    height: 200
-                    width: 200
-                    onClicked: {
-                        console.log(model.state)
-                        if (model.state === MeditationState.Started)
-                        {
-                            model.pauseMeditation()
-                            text = "\u25B6"
+            Button {
+                id: startPauseButton
+                background: Rectangle {
+                    color: Constants.gray
+                }
+                Image {
+                    id: startPauseButtonIcon
+                    source: "icons/play.png"
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    Component.onCompleted: {
+                        if (model.state === MeditationState.Started) {
+                            source = "icons/pause.png"
                         }
-                        else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped)
-                        {
-                            model.startMeditation()
-                            text = "\u23F8"
+                        else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped) {
+                            source = "icons/play.png"
                         }
                     }
                 }
-                RoundButton {
-                    id: stopButton
-                    Layout.alignment: Qt.AlignCenter
-                    text: "\u23F9"
-                    onClicked:
-                    {
-                        startPauseButton.text = "\u25B6"
-                        model.stopMeditation()
+                Layout.maximumHeight: Constants.height / 4
+                Layout.minimumHeight: Constants.height / 4
+                Layout.maximumWidth: Constants.height / 4
+                Layout.minimumWidth: Constants.height / 4
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onClicked: {
+                    if (model.state === MeditationState.Started) {
+                        model.pauseMeditation()
+                        startPauseButtonIcon.source = "icons/play.png"
                     }
-                    visible: model.state === MeditationState.Paused
+                    else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped) {
+                        model.startMeditation()
+                        startPauseButtonIcon.source = "icons/pause.png"
+                    }
                 }
-//            }
+
+            }
+            Button {
+                id: stopButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.maximumHeight: Constants.height / 8
+                Layout.minimumHeight: Constants.height / 8
+                Layout.maximumWidth: Constants.height / 8
+                Layout.minimumWidth: Constants.height / 8
+                Layout.fillHeight: true
+                background: Rectangle {
+                    color: Constants.gray
+                }
+                Image {
+                    id: stopButtonIcon
+                    source: "icons/stop.png"
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                }
+                transformOrigin: Item.Center
+                onClicked: {
+                    startPauseButtonIcon.source = "icons/play.png"
+                    model.stopMeditation()
+                }
+                enabled: model.state === MeditationState.Paused
+                onEnabledChanged: {
+                    if(enabled) {
+                        stopButtonIcon.source = "icons/stop.png"
+
+                    }
+                    else {
+                        stopButtonIcon.source = ""
+                    }
+                }
+            }
         }
     }
-
     Connections {
         target: model
         function onTimeLeftChanged(timeLeft) {
