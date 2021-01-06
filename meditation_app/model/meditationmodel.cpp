@@ -1,5 +1,26 @@
 #include "meditationmodel.h"
+#include <QDateTime>
 #include <QDebug>
+
+namespace
+{
+QString formatTime(uint seconds) {
+    int s = seconds % 60;
+    int m = (seconds / 60) % 60;
+    int h = (seconds / 60 / 60);
+
+    QString res;
+    if (h > 0) {
+        res = QString("%1:%2:%3")
+                  .arg(h, 2, 10, QChar('0'))
+                  .arg(m, 2, 10, QChar('0'))
+                  .arg(s, 2, 10, QChar('0'));
+    } else {
+        res = QString("%1:%2").arg(m, 2, 10, QChar('0')).arg(s, 2, 10, QChar('0'));
+    }
+    return res;
+}
+} // anonymous namespace
 
 MeditationModel::MeditationState
 MeditationModel::toModelMeditationState(const med::MeditationState state) {
@@ -61,7 +82,8 @@ void MeditationModel::setTimeLeft(uint16_t time_left_s) {
              << time_left_s;
 
     time_left_s_ = time_left_s;
-    emit timeLeftChanged(time_left_s_);
+
+    emit timeLeftChanged(formatTime(time_left_s_));
 }
 
 void MeditationModel::startMeditation() {
