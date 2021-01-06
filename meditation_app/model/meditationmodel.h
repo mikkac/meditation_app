@@ -10,7 +10,6 @@ class MeditationModel : public QObject
     Q_OBJECT
     Q_PROPERTY(MeditationState state READ getState NOTIFY modelStateChanged)
     Q_PROPERTY(uint16_t duration READ getDuration WRITE setDuration NOTIFY durationChanged)
-    Q_PROPERTY(uint timeLeftS READ getTimeLeft WRITE setTimeLeft NOTIFY timeLeftChanged)
 
   public:
     enum class MeditationState {
@@ -34,7 +33,7 @@ class MeditationModel : public QObject
     // used by QML
     void modelStateChanged(MeditationState state);
     void durationChanged(uint16_t duration);
-    void timeLeftChanged(uint timeLeft);
+    void timeLeftChanged(QString timeLeftFormatted);
 
     // used by C++
     void configChanged(med::MeditationConfig config);
