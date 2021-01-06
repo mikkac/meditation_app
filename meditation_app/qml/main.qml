@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.12
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.4
 import MeditationApp 1.0
 
 ApplicationWindow {
@@ -14,6 +15,11 @@ ApplicationWindow {
     Material.accent: Material.Purple
 
     footer: ToolBar {
+        background: Rectangle {
+            implicitWidth: 100
+            implicitHeight: 40
+            color: Constants.gray
+        }
         ButtonsBar {
             id: buttonsBar
             anchors.fill: parent
@@ -26,6 +32,7 @@ ApplicationWindow {
             onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
             onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
         }
+
     }
 
     ColumnLayout {
