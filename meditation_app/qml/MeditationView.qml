@@ -12,9 +12,9 @@ Item {
         ColumnLayout {
             id: mainLayout
             anchors.fill: parent
-            Label {
+            Text {
                 id: timeLabel
-                text: model.timeLeftS
+                text: "00:00"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 Layout.fillWidth: true
@@ -23,7 +23,8 @@ Item {
                 Layout.minimumHeight: Constants.height / 6
                 font.weight: Font.ExtraLight
                 font.pointSize: 40
-                font.family: "Verdana"
+                font.family: "Arial"
+                color: Constants.textColor
             }
             Button {
                 id: startPauseButton
@@ -99,8 +100,9 @@ Item {
     }
     Connections {
         target: model
-        function onTimeLeftChanged(timeLeft) {
-            console.log("time left: ", timeLeft)
-            timeLabel.text = timeLeft }
+        function onTimeLeftChanged(timeLeftFormatted) {
+            console.log("time left: ", timeLeftFormatted)
+            timeLabel.text = timeLeftFormatted
+        }
     }
 }
