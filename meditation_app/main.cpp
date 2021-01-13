@@ -1,6 +1,7 @@
 #include "logic/meditationcontroller.h"
 #include "logic/timer.h"
 #include "model/meditationmodel.h"
+//#include <QAndroidJniObject>
 #include <QGuiApplication>
 #include <QObject>
 #include <QQmlApplicationEngine>
@@ -20,6 +21,8 @@ int main(int argc, char* argv[]) {
         },
         Qt::QueuedConnection);
 
+    //    QAndroidJniObject::getStaticField<int>("android.content.pm.ActivityInfo",
+    //                                           "SCREEN_ORIENTATION_LANDSCAPE");
     // Create objects
     auto timer = med::Timer();
     auto meditation_model = MeditationModel();

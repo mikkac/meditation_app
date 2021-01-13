@@ -28,6 +28,11 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick LinguistTools REQUIRED)
 
 if(ANDROID)
+    find_package(QT NAMES Qt6 Qt5 COMPONENTS AndroidExtras REQUIRED)
+    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)
+endif()
+
+if(ANDROID)
     add_library(meditation_app SHARED
       main.cpp
       logic/timer.cpp
@@ -53,3 +58,7 @@ target_compile_definitions(meditation_app
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(meditation_app
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+if(ANDROID)
+    target_link_libraries(meditation_app
+        PRIVATE Qt${QT_VERSION_MAJOR}::AndroidExtras)
+endif()
