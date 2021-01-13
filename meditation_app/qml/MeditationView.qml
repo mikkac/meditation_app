@@ -26,11 +26,9 @@ Item {
                 font.family: "Arial"
                 color: Constants.textColor
             }
-            Button {
+            Rectangle {
                 id: startPauseButton
-                background: Rectangle {
-                    color: Constants.gray
-                }
+                color: Constants.gray
                 Image {
                     id: startPauseButtonIcon
                     source: "icons/play.png"
@@ -51,29 +49,42 @@ Item {
                 Layout.minimumWidth: Constants.height / 4
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                onClicked: {
-                    if (model.state === MeditationState.Started) {
-                        model.pauseMeditation()
-                        startPauseButtonIcon.source = "icons/play.png"
-                    }
-                    else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped) {
-                        model.startMeditation()
-                        startPauseButtonIcon.source = "icons/pause.png"
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    onClicked: {
+                        if (model.state === MeditationState.Started) {
+                            model.pauseMeditation()
+                            startPauseButtonIcon.source = "icons/play.png"
+                            stopButtonEnabledAnimation.running = true
+                            stopButton.enabled = true
+                        }
+                        else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped) {
+                            model.startMeditation()
+                            startPauseButtonIcon.source = "icons/pause.png"
+                            stopButtonDisabledAnimation.running = true
+                            stopButton.enabled = false
+                        }
                     }
                 }
-
+                states: State {
+                    name: "pressed"
+                    when: mouseArea.pressed
+                    PropertyChanges { target: startPauseButtonIcon; scale: 1.2 }
+                }
+                transitions: Transition {
+                    NumberAnimation { properties: "scale"; duration: 300; easing.type: Easing.InOutQuad }
+                }
             }
-            Button {
+            Rectangle {
                 id: stopButton
+                color: Constants.gray
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.maximumHeight: Constants.height / 8
                 Layout.minimumHeight: Constants.height / 8
                 Layout.maximumWidth: Constants.height / 8
                 Layout.minimumWidth: Constants.height / 8
                 Layout.fillHeight: true
-                background: Rectangle {
-                    color: Constants.gray
-                }
                 Image {
                     id: stopButtonIcon
                     source: "icons/stop.png"
@@ -81,11 +92,7 @@ Item {
                     fillMode: Image.PreserveAspectFit
                 }
                 transformOrigin: Item.Center
-                onClicked: {
-                    startPauseButtonIcon.source = "icons/play.png"
-                    model.stopMeditation()
-                }
-                enabled: model.state === MeditationState.Paused
+                enabled: false
                 onEnabledChanged: {
                     if(enabled) {
                         stopButtonIcon.source = "icons/stop.png"
@@ -95,6 +102,24 @@ Item {
                         stopButtonIcon.source = ""
                     }
                 }
+                MouseArea {
+                    id: stopButtonArea
+                    anchors.fill: parent
+                    onClicked: {
+                        startPauseButtonIcon.source = "icons/play.png"
+                        model.stopMeditation()
+                        stopButtonDisabledAnimation.running = true
+                    }
+                }
+                states: State {
+                    name: "pressed"
+                    when: stopButtonArea.pressed
+                    PropertyChanges { target: stopButtonIcon; scale: 1.2}
+                }
+                transitions: Transition {
+                    NumberAnimation { properties: "scale"; duration: 100; easing.type: Easing.InOutQuad }
+                }
+
             }
         }
     }
@@ -104,5 +129,19 @@ Item {
             console.log("time left: ", timeLeftFormatted)
             timeLabel.text = timeLeftFormatted
         }
+    }
+    PropertyAnimation {
+        id: stopButtonEnabledAnimation
+        targets: stopButton
+        property: "opacity"
+        to: 1.0
+        duration: 500
+    }
+    PropertyAnimation {
+        id: stopButtonDisabledAnimation
+        targets: stopButton
+        property: "opacity"
+        to: 0.0
+        duration: 500
     }
 }
