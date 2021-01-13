@@ -15,6 +15,7 @@ ApplicationWindow {
     Material.accent: Material.Purple
 
     footer: ToolBar {
+
         background: Rectangle {
             implicitWidth: 100
             implicitHeight: 40
@@ -22,6 +23,7 @@ ApplicationWindow {
         }
         ButtonsBar {
             id: buttonsBar
+            iconsEnabled: meditationModel.state != MeditationState.Started && meditationModel.state != MeditationState.Paused
             anchors.fill: parent
             onMeditationClicked: function() {
                 if (viewLoader.source != Qt.resolvedUrl("MeditationView.qml"))
