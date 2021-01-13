@@ -9,9 +9,12 @@ RowLayout {
     property var onSettingsClicked
     property var iconsEnabled: true
 
+    property var meditationViewActive: true
+    property var statsViewActive: false
+    property var settingsViewActive: false
+
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignVCenter | Qt.AlignBottom
-
 
     Rectangle {
         id: meditationButton
@@ -31,12 +34,16 @@ RowLayout {
         MouseArea {
             id: meditationButtonArea
             anchors.fill: parent
-            onClicked: onMeditationClicked()
+            onClicked: {
+                onMeditationClicked()
+                meditationViewActive = true
+                statsViewActive = false
+                settingsViewActive = false
+            }
         }
-
         states: State {
             name: "pressed"
-            when: meditationButtonArea.pressed
+            when: meditationButtonArea.pressed && !meditationViewActive
             PropertyChanges { target: meditationButton; scale: 1.2 }
         }
         transitions:Transition {
@@ -44,7 +51,6 @@ RowLayout {
         }
 
     }
-
     Rectangle {
         id: statsButton
         color: Constants.gray
@@ -63,7 +69,12 @@ RowLayout {
         MouseArea {
             id: statsButtonArea
             anchors.fill: parent
-            onClicked: onStatsClicked()
+            onClicked: {
+                onStatsClicked()
+                meditationViewActive = false
+                statsViewActive = true
+                settingsViewActive = false
+            }
         }
         states: State {
             name: "pressed"
@@ -74,7 +85,6 @@ RowLayout {
             NumberAnimation { properties: "scale"; duration: 100; easing.type: Easing.InOutQuad }
         }
     }
-
     Rectangle {
         id: settingsButton
         color: Constants.gray
@@ -93,7 +103,12 @@ RowLayout {
         MouseArea {
             id: settingsButtonArea
             anchors.fill: parent
-            onClicked: onSettingsClicked()
+            onClicked: {
+                onSettingsClicked()
+                meditationViewActive = false
+                statsViewActive = false
+                settingsViewActive = true
+            }
         }
         states: State {
             name: "pressed"
@@ -104,7 +119,6 @@ RowLayout {
             NumberAnimation { properties: "scale"; duration: 100; easing.type: Easing.InOutQuad }
         }
     }
-
     PropertyAnimation {
         id: buttonsDisabledAnimation
         targets: [meditationButton, statsButton, settingsButton]
@@ -112,7 +126,6 @@ RowLayout {
         to: 0.0
         duration: 500
     }
-
     PropertyAnimation {
         id: buttonsEnabledAnimation
         targets: [meditationButton, statsButton, settingsButton]
@@ -120,7 +133,6 @@ RowLayout {
         to: 1.0
         duration: 500
     }
-
     onIconsEnabledChanged: {
         if (iconsEnabled) {
             buttonsEnabledAnimation.running = true
