@@ -39,15 +39,19 @@ MeditationModel::MeditationState MeditationModel::getState() const {
     return state_;
 }
 
-uint16_t MeditationModel::getDuration() const {
+uint MeditationModel::getDuration() const {
     return config_.duration_s;
+}
+
+QString MeditationModel::getDurationFormatted() const {
+    return formatTime(config_.duration_s);
 }
 
 uint MeditationModel::getTimeLeft() const {
     return time_left_s_;
 }
 
-void MeditationModel::setDuration(uint16_t duration) {
+void MeditationModel::setDuration(uint duration) {
     if (config_.duration_s == duration) {
         qDebug() << "MeditationModel::setDuration-> no change, returning";
         return;
@@ -56,6 +60,7 @@ void MeditationModel::setDuration(uint16_t duration) {
              << static_cast<int>(config_.duration_s) << " to " << static_cast<int>(duration);
 
     config_.duration_s = duration;
+    config_.time_left_s = duration;
     emit durationChanged(duration);
     emit configChanged(config_);
 }

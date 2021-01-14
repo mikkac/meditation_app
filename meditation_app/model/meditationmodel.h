@@ -9,7 +9,8 @@ class MeditationModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(MeditationState state READ getState NOTIFY modelStateChanged)
-    Q_PROPERTY(uint16_t duration READ getDuration WRITE setDuration NOTIFY durationChanged)
+    Q_PROPERTY(uint duration READ getDuration WRITE setDuration NOTIFY durationChanged)
+    Q_PROPERTY(QString durationFormatted READ getDurationFormatted)
 
   public:
     enum class MeditationState {
@@ -25,9 +26,10 @@ class MeditationModel : public QObject
     explicit MeditationModel(QObject* parent = nullptr);
 
     MeditationState getState() const;
-    uint16_t getDuration() const;
+    uint getDuration() const;
+    QString getDurationFormatted() const;
     uint getTimeLeft() const;
-    void setDuration(uint16_t duration);
+    void setDuration(uint duration);
 
   signals:
     // used by QML
