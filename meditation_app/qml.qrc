@@ -18,5 +18,6 @@
         <file>qml/icons/play.png</file>
         <file>qml/icons/settings.png</file>
         <file>qml/icons/stats.png</file>
+        <file>qml/MeditationPrepView.qml</file>
     </qresource>
 </RCC>

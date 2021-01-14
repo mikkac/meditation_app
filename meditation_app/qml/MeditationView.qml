@@ -87,7 +87,7 @@ Item {
                 Layout.fillHeight: true
                 Image {
                     id: stopButtonIcon
-                    source: "icons/stop.png"
+                    source: ""
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
                 }
@@ -96,7 +96,6 @@ Item {
                 onEnabledChanged: {
                     if(enabled) {
                         stopButtonIcon.source = "icons/stop.png"
-
                     }
                     else {
                         stopButtonIcon.source = ""

@@ -13,6 +13,10 @@ ApplicationWindow {
     title: qsTr("Meditation App")
     Material.theme: Material.Dark
     Material.accent: Material.Purple
+    background: Rectangle {
+        anchors.fill: parent
+        color: Constants.gray
+    }
 
     footer: ToolBar {
 
@@ -26,27 +30,26 @@ ApplicationWindow {
             iconsEnabled: meditationModel.state != MeditationState.Started && meditationModel.state != MeditationState.Paused
             anchors.fill: parent
             onMeditationClicked: function() {
-                if (viewLoader.source != Qt.resolvedUrl("MeditationView.qml"))
+                if (viewLoader.source != Qt.resolvedUrl("MeditationPrepView.qml"))
                 {
-                    viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
+                    viewLoader.setSource("MeditationPrepView.qml", {
+                                             "model": meditationModel,
+                                             "onPrepFinished": meditationPrepFinished
+                                         })
                 }
             }
             onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
             onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
         }
-
     }
-
     ColumnLayout {
         id: mainLayout
         width: parent.width
         height: parent.height
         anchors.fill: parent
-
         RowLayout {
             Layout.alignment: Qt.AlignCenter
             Item {
-
                 width: parent.width
                 height: parent.height
                 Loader {
@@ -55,7 +58,6 @@ ApplicationWindow {
                    height: parent.height
                    onSourceChanged: animation.running = true
                 }
-
                 NumberAnimation {
                     id: animation
                     target: viewLoader.item
@@ -65,12 +67,17 @@ ApplicationWindow {
                     duration: 300
                     easing.type: Easing.InExpo
                 }
-
                 Component.onCompleted:  {
-                    viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
+                    viewLoader.setSource("MeditationPrepView.qml", {
+                                             "model": meditationModel,
+                                             "onPrepFinished": meditationPrepFinished
+                                         })
                 }
             }
         }
+    }
+    function meditationPrepFinished() {
+        viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
     }
 
 }
