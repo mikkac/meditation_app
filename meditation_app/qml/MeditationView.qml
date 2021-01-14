@@ -14,7 +14,7 @@ Item {
             anchors.fill: parent
             Text {
                 id: timeLabel
-                text: "00:00"
+                text: model.durationFormatted
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 Layout.fillWidth: true
