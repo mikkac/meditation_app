@@ -44,12 +44,18 @@ RowLayout {
         states: State {
             name: "pressed"
             when: meditationButtonArea.pressed && !meditationViewActive
-            PropertyChanges { target: meditationButton; scale: 1.2 }
+            PropertyChanges {
+                target: meditationButton
+                scale: 1.2
+            }
         }
-        transitions:Transition {
-            NumberAnimation { property: "scale"; duration: 100; easing.type: Easing.InOutQuad }
+        transitions: Transition {
+            NumberAnimation {
+                property: "scale"
+                duration: 100
+                easing.type: Easing.InOutQuad
+            }
         }
-
     }
     Rectangle {
         id: statsButton
@@ -79,10 +85,17 @@ RowLayout {
         states: State {
             name: "pressed"
             when: statsButtonArea.pressed
-            PropertyChanges { target: statsButtonIcon; scale: 1.2 }
+            PropertyChanges {
+                target: statsButtonIcon
+                scale: 1.2
+            }
         }
         transitions: Transition {
-            NumberAnimation { properties: "scale"; duration: 100; easing.type: Easing.InOutQuad }
+            NumberAnimation {
+                properties: "scale"
+                duration: 100
+                easing.type: Easing.InOutQuad
+            }
         }
     }
     Rectangle {
@@ -113,10 +126,17 @@ RowLayout {
         states: State {
             name: "pressed"
             when: settingsButtonArea.pressed
-            PropertyChanges { target: settingsButtonIcon; scale: 1.2 }
+            PropertyChanges {
+                target: settingsButtonIcon
+                scale: 1.2
+            }
         }
         transitions: Transition {
-            NumberAnimation { properties: "scale"; duration: 100; easing.type: Easing.InOutQuad }
+            NumberAnimation {
+                properties: "scale"
+                duration: 100
+                easing.type: Easing.InOutQuad
+            }
         }
     }
     PropertyAnimation {
@@ -137,8 +157,7 @@ RowLayout {
         if (iconsEnabled) {
             buttonsEnabledAnimation.running = true
             mainLayout.enabled = true
-        }
-        else {
+        } else {
             buttonsDisabledAnimation.running = true
             mainLayout.enabled = false
         }

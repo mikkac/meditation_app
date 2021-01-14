@@ -27,19 +27,24 @@ ApplicationWindow {
         }
         ButtonsBar {
             id: buttonsBar
-            iconsEnabled: meditationModel.state != MeditationState.Started && meditationModel.state != MeditationState.Paused
+            iconsEnabled: meditationModel.state != MeditationState.Started
+                          && meditationModel.state != MeditationState.Paused
             anchors.fill: parent
-            onMeditationClicked: function() {
-                if (viewLoader.source != Qt.resolvedUrl("MeditationPrepView.qml"))
-                {
+            onMeditationClicked: function () {
+                if (viewLoader.source != Qt.resolvedUrl(
+                            "MeditationPrepView.qml")) {
                     viewLoader.setSource("MeditationPrepView.qml", {
                                              "model": meditationModel,
                                              "onPrepFinished": meditationPrepFinished
                                          })
                 }
             }
-            onStatsClicked: function() { viewLoader.source = "StatsView.qml" }
-            onSettingsClicked: function() { viewLoader.source = "SettingsView.qml" }
+            onStatsClicked: function () {
+                viewLoader.source = "StatsView.qml"
+            }
+            onSettingsClicked: function () {
+                viewLoader.source = "SettingsView.qml"
+            }
         }
     }
     ColumnLayout {
@@ -53,10 +58,10 @@ ApplicationWindow {
                 width: parent.width
                 height: parent.height
                 Loader {
-                   id: viewLoader
-                   width: parent.width
-                   height: parent.height
-                   onSourceChanged: animation.running = true
+                    id: viewLoader
+                    width: parent.width
+                    height: parent.height
+                    onSourceChanged: animation.running = true
                 }
                 NumberAnimation {
                     id: animation
@@ -67,7 +72,7 @@ ApplicationWindow {
                     duration: 300
                     easing.type: Easing.InExpo
                 }
-                Component.onCompleted:  {
+                Component.onCompleted: {
                     viewLoader.setSource("MeditationPrepView.qml", {
                                              "model": meditationModel,
                                              "onPrepFinished": meditationPrepFinished
@@ -77,7 +82,8 @@ ApplicationWindow {
         }
     }
     function meditationPrepFinished() {
-        viewLoader.setSource("MeditationView.qml", {"model": meditationModel})
+        viewLoader.setSource("MeditationView.qml", {
+                                 "model": meditationModel
+                             })
     }
-
 }

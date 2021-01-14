@@ -37,8 +37,8 @@ Item {
                     Component.onCompleted: {
                         if (model.state === MeditationState.Started) {
                             source = "icons/pause.png"
-                        }
-                        else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped) {
+                        } else if (model.state === MeditationState.Paused
+                                   || model.state === MeditationState.Stopped) {
                             source = "icons/play.png"
                         }
                     }
@@ -58,8 +58,8 @@ Item {
                             startPauseButtonIcon.source = "icons/play.png"
                             stopButtonEnabledAnimation.running = true
                             stopButton.enabled = true
-                        }
-                        else if (model.state === MeditationState.Paused || model.state === MeditationState.Stopped) {
+                        } else if (model.state === MeditationState.Paused
+                                   || model.state === MeditationState.Stopped) {
                             model.startMeditation()
                             startPauseButtonIcon.source = "icons/pause.png"
                             stopButtonDisabledAnimation.running = true
@@ -70,10 +70,17 @@ Item {
                 states: State {
                     name: "pressed"
                     when: mouseArea.pressed
-                    PropertyChanges { target: startPauseButtonIcon; scale: 1.2 }
+                    PropertyChanges {
+                        target: startPauseButtonIcon
+                        scale: 1.2
+                    }
                 }
                 transitions: Transition {
-                    NumberAnimation { properties: "scale"; duration: 300; easing.type: Easing.InOutQuad }
+                    NumberAnimation {
+                        properties: "scale"
+                        duration: 300
+                        easing.type: Easing.InOutQuad
+                    }
                 }
             }
             Rectangle {
@@ -94,10 +101,9 @@ Item {
                 transformOrigin: Item.Center
                 enabled: false
                 onEnabledChanged: {
-                    if(enabled) {
+                    if (enabled) {
                         stopButtonIcon.source = "icons/stop.png"
-                    }
-                    else {
+                    } else {
                         stopButtonIcon.source = ""
                     }
                 }
@@ -113,12 +119,18 @@ Item {
                 states: State {
                     name: "pressed"
                     when: stopButtonArea.pressed
-                    PropertyChanges { target: stopButtonIcon; scale: 1.2}
+                    PropertyChanges {
+                        target: stopButtonIcon
+                        scale: 1.2
+                    }
                 }
                 transitions: Transition {
-                    NumberAnimation { properties: "scale"; duration: 100; easing.type: Easing.InOutQuad }
+                    NumberAnimation {
+                        properties: "scale"
+                        duration: 100
+                        easing.type: Easing.InOutQuad
+                    }
                 }
-
             }
         }
     }
