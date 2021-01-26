@@ -24,5 +24,10 @@
         <file>qml/icons/minus.png</file>
         <file>qml/fonts/anja_eliane.ttf</file>
         <file>qml/fonts/blue_highway.ttf</file>
+        <file>qml/sounds/tolling.wav</file>
+        <file>qml/sounds/gamelan.wav</file>
+        <file>qml/sounds/ding.wav</file>
+        <file>qml/sounds/chime_finish.wav</file>
+        <file>qml/sounds/bell_candle.wav</file>
     </qresource>
 </RCC>
