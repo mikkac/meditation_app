@@ -48,15 +48,20 @@ Item {
         Layout.alignment: Qt.AlignHCenter
         spacing: parent.width / 30
         Rectangle {
+            width: parent.width * 1 / 16
+            height: parent.height
             color: Constants.gray
-            width: parent.width * 8/ 16
+        }
+        Rectangle {
+            color: Constants.gray
+            width: parent.width * 7/ 16
             height: parent.height
             Label {
                 id: titleLabel
                 anchors.fill: parent
                 text: title
                 verticalAlignment:Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 font.family: loadedFont.name
                 font.pointSize: 20
                 color: Constants.textColor
